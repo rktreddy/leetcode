@@ -20,13 +20,20 @@ class Solution:
         #     fast = fast.next.next
         # return slow.next
     
-        """ Approach 1: Output to Array O(N), O(N)"""
-        arr = [head]
-        while arr[-1].next:
-            arr.append(arr[-1].next)
-        return arr[len(arr) // 2]
+        # """ Approach 1: Output to Array O(N), O(N)"""
+        # arr = [head]
+        # while arr[-1].next:
+        #     arr.append(arr[-1].next)
+        # return arr[len(arr) // 2]
     
-        """ Approach 2: Fast and Slow Pointer O(N), O(1)"""
+        # """ Approach 2: Fast and Slow Pointer O(N), O(1)"""
+        # slow = fast = head
+        # while fast and fast.next:
+        #     slow = slow.next
+        #     fast = fast.next.next
+        # return slow
+    
+        """ Practice: Approach 2: Fast and Slow Pointer O(N), O(1)"""
         slow = fast = head
         while fast and fast.next:
             slow = slow.next

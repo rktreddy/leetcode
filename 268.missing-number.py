@@ -31,14 +31,21 @@ class Solution:
     #         if number not in num_set:
     #             return number
             
-    def missingNumber(self, nums: List[int]) -> int:
-        """ Approach #3 Bit Manipulation O(n), O(1) """
+    # def missingNumber(self, nums: List[int]) -> int:
+    #     """ Approach #3 Bit Manipulation O(n), O(1) """
         
+    #     missing = len(nums)
+    #     for i, num in enumerate(nums):
+    #         missing ^= i ^ num
+    #     return missing
+    
+    def missingNumber(self, nums: List[int]) -> int:
+        """ Practice: Approach #3 Bit Manipulation O(n), O(1) """
         missing = len(nums)
         for i, num in enumerate(nums):
             missing ^= i ^ num
         return missing
-    
+
 
 # @lc code=end
 

@@ -6,13 +6,21 @@
 
 # @lc code=start
 
+# class ListNode:
+#     def __init__(self, key, val) -> None:
+#         self.key = key
+#         self.val = val
+#         self.next = None
+#         self.prev = None
+
 class ListNode:
-    def __init__(self, key, val) -> None:
+    """ practice """
+    def __init__(self, key, val):
         self.key = key
         self.val = val
         self.next = None
         self.prev = None
-
+        
 class LRUCache:
 
     # """ Neetcode: Approach 1:bruteforce  o(n), O(n) """
@@ -130,7 +138,8 @@ class LRUCache:
         self.tail = ListNode(-1, -1)
 
         self.head.next = self.tail
-        self.tail.prev = self.head
+        self.tail.prev = self.head 
+
         
     def get(self, key):
         if key not in self.cache:
@@ -138,28 +147,27 @@ class LRUCache:
         self.remove(self.cache[key])
         self.insert(self.cache[key])
         return self.cache[key].val
+
         
-    def put(self, key, value):
+    def put(self, key, val):
         if key in self.cache:
             self.remove(self.cache[key])
-        self.cache[key] = ListNode(key, value)
+        self.cache[key] = ListNode(key, val)
         self.insert(self.cache[key])
+
         if len(self.cache) > self.capacity:
             lru = self.head.next
             self.remove(lru)
-            del self.cache[lru.key]
-        
+            del self.cache[lru.key]        
+
     def remove(self, node):
         node.prev.next = node.next
         node.next.prev = node.prev
         
     def insert(self, node):
         prev_node = self.tail.prev
-        self.tail.prev = node
-        node.next = self.tail
-        node.prev = prev_node
-        prev_node.next = node
-        
+        prev_node.next = self.tail.prev = node
+        node.next, node.prev = self.tail, prev_node
 
     
     # """ Approach 2: Built-in O(1), O(capacity) """

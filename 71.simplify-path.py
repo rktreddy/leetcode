@@ -50,15 +50,15 @@ class Solution:
     def simplifyPath(self, path: str) -> str:
         """ practice: Approach: Using Stacks O(N), O(N) """
         stack = []
-        for part in path.split('/'):
-            if part == '..':
+        for part in path.split("/"):
+            if part == "..":
                 if stack:
                     stack.pop()
-            elif part == '.' or part == '':
+            elif part == "." or part == "":
                 continue
             else:
                 stack.append(part)
-        return '/' + '/'.join(stack)
-    
+        return "/" + "/".join(stack)
+
 # @lc code=end
 

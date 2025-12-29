@@ -60,21 +60,16 @@ class Solution:
     def __init__(self) -> None:
         self.visited = {}
         
-
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         """ practice: Approach 1: Recursive O(N), O(N) """
         if not head:
             return None
-        
         if head in self.visited:
             return self.visited[head]
-        
         node = Node(head.val, None, None)
         self.visited[head] = node
-
         node.next = self.copyRandomList(head.next)
         node.random = self.copyRandomList(head.random)
-
         return node
       
     # """ Approach 2: Iterative with O(N) Space: O(N), O(N)"""

@@ -25,18 +25,28 @@ class Solution:
 
 #         return rec_isSubsequence(0, 0)
     
+    # def isSubsequence(self, s: str, t: str) -> bool:
+    #     """Approach 2: Two-Pointers O(|T|, O(1) """
+    #     LEFT_BOUND, RIGHT_BOUND = len(s), len(t)
+
+    #     p_left = p_right = 0
+    #     while p_left < LEFT_BOUND and p_right < RIGHT_BOUND:
+    #         # move both pointers or just the right pointer
+    #         if s[p_left] == t[p_right]:
+    #             p_left += 1
+    #         p_right += 1
+
+    #     return p_left == LEFT_BOUND
+    
     def isSubsequence(self, s: str, t: str) -> bool:
         """Approach 2: Two-Pointers O(|T|, O(1) """
-        LEFT_BOUND, RIGHT_BOUND = len(s), len(t)
+        i = j = 0
+        while i < len(s) and j < len(t):
+            if s[i] == t[j]:
+                i += 1
+            j += 1
+        return i == len(s)
 
-        p_left = p_right = 0
-        while p_left < LEFT_BOUND and p_right < RIGHT_BOUND:
-            # move both pointers or just the right pointer
-            if s[p_left] == t[p_right]:
-                p_left += 1
-            p_right += 1
-
-        return p_left == LEFT_BOUND
 
     #  def isSubsequence(self, s: str, t: str) -> bool:
     #     """Approach 3: Greedy Match with Character Indices Hashmap O(|T| + S log|T|), O(|T|))"""

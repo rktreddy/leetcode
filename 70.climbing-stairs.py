@@ -86,5 +86,17 @@ class Solution:
     #     psi = (1 - sqrt5) / 2
     #     return int((phi ** (n + 1) - psi ** (n + 1)) / sqrt5)
 
+    """ Approach 7: Chatgpt Fibonacci Formula: Time O(n), Space: O(1) """
+        # if n <= 2:
+        #     return n
+        
+        # one, two = 2, 1  # one = f(n-1), two = f(n-2)
+        
+        # for _ in range(3, n + 1):
+        #     one, two = one + two, one  # f(n) = f(n-1) + f(n-2)
+        
+        # return one
+
+
 # @lc code=end
 

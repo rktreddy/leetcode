@@ -50,7 +50,7 @@ class Solution:
     #             return 0
     #         leftGain = max(gainFromSubtree(node.left), 0)
     #         rightGain = max(gainFromSubtree(node.right), 0)
-
+            
     #         maxPath = max(maxPath, leftGain + rightGain + node.val)
 
     #         return max(leftGain + node.val, rightGain + node.val)
@@ -60,38 +60,40 @@ class Solution:
     
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         """ practice: Approach: Post Order DFS O(n), O(n) """
-        maxPath = float("-inf")
-        def dfs(node):
-            nonlocal maxPath
-            if not node:
-                return 0
-            
-            left_sum = max(dfs(node.left), 0)
-            right_sum = max(dfs(node.right), 0)
+        self.max_path_sum = float('-inf')
+        self.dfs(root)
+        return self.max_path_sum
+    
+    def dfs(self, node):
+        if not node:
+            return 0
+        left = max(self.dfs(node.left), 0)
+        right = max(self.dfs(node.right), 0)
+        self.max_path_sum = max(self.max_path_sum, left + right + node.val)
 
-            maxPath = max(maxPath, left_sum + right_sum + node.val)
-
-            return max(left_sum + node.val, right_sum + node.val)
+        return max(left, right) + node.val
+    
+    # def maxPathSum(self, root: Optional[TreeNode]) -> int:
+    #     """ chatgpt corrected """
+    #     self.max_path_sum = float('-inf')
+    #     self.dfs(root)
+    #     return self.max_path_sum
         
-        dfs(root)
-        return maxPath
-
-    # def __init__(self) -> None:
-    #     self.maxPath = float("-inf")
-
-    # def gainFromSubtree(self, node):
+    # def dfs(self, node):
     #     if not node:
     #         return 0
-    #     gainFromLeft = max(self.gainFromSubtree(node.left), 0)
-    #     gainFromRight = max(self.gainFromSubtree(node.right), 0)
-    #     self.maxPath = max(self.maxPath, gainFromLeft + gainFromRight + node.val)
 
-    #     return max(gainFromLeft + node.val, gainFromRight + node.val)
+    #     left = max(self.dfs(node.left), 0)
+    #     right = max(self.dfs(node.right), 0)
 
-    # def maxPathSum(self, root: Optional[TreeNode]) -> int:
-    #     """ practice2: Approach: Post Order DFS O(n), O(n) """
-    #     self.gainFromSubtree(root)
-    #     return self.maxPath
+    #     # update global max (path may end here)
+    #     self.max_path_sum = max(self.max_path_sum, left + right + node.val)
+
+    #     # return max gain to parent (one side only)
+    #     return max(left, right) + node.val
+
+     
+    
     
 # @lc code=end
 
@@ -113,3 +115,38 @@ class Solution:
 #     dfs(root)
 #     return diameter
 
+
+# def maxPathSum(self, root: Optional[TreeNode]) -> int:
+    #     """ practice: Approach: Post Order DFS O(n), O(n) """
+    #     maxSum = float('-inf')
+    #     def dfs(node):
+    #         nonlocal maxSum
+    #         if not node:
+    #             return 0
+    #         leftSum = max(dfs(node.left), 0)
+    #         rightSum = max(dfs(node.right), 0)
+
+    #         maxSum = max(maxSum, leftSum + rightSum + node.val)
+
+    #         return max(leftSum + node.val, rightSum + node.val)
+
+    #     dfs(root)
+    #     return maxSum
+
+
+    # def __init__(self) -> None:
+    #     self.maxPath = float("-inf")
+
+    # def gainFromSubtree(self, node):
+    #     if not node:
+    #         return 0
+    #     gainFromLeft = max(self.gainFromSubtree(node.left), 0)
+    #     gainFromRight = max(self.gainFromSubtree(node.right), 0)
+    #     self.maxPath = max(self.maxPath, gainFromLeft + gainFromRight + node.val)
+
+    #     return max(gainFromLeft + node.val, gainFromRight + node.val)
+
+    # def maxPathSum(self, root: Optional[TreeNode]) -> int:
+    #     """ practice2: Approach: Post Order DFS O(n), O(n) """
+    #     self.gainFromSubtree(root)
+    #     return self.maxPath

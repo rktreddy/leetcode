@@ -91,19 +91,18 @@ class Solution:
 
     def myPow(self, x: float, n: int) -> float:
         """ practice: Neetcode: 3. Binary Exponentiation (Iterative) O(logn), O(1) """
-        if x == 0:
-            return 0
         if n == 0:
             return 1
-        
+        if x == 0:
+            return 0
         power = abs(n)
-        ans = 1
+        res = 1
         while power:
             if power % 2 == 1:
-                ans *= x
+                res *= x
             x *= x
             power //= 2
-        return ans if n >= 0 else 1/ans
+        return res if n >= 0 else 1/res
 
 # @lc code=end
 

@@ -114,20 +114,18 @@ class Solution:
     #     return hare
 
     def findDuplicate(self, nums: List[int]) -> int:
-        """ Approach 7: practice """
+        """ Approach 7: practice: Floyd's Tortoise and Hare (Cycle Detection) O(n), O(1) """
         slow = fast = nums[0]
         while True:
             slow = nums[slow]
             fast = nums[nums[fast]]
             if slow == fast:
                 break
-
         slow = nums[0]
         while slow != fast:
             slow = nums[slow]
             fast = nums[fast]
-
-        return fast            
+        return fast
             
 # @lc code=end
 

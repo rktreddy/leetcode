@@ -82,11 +82,8 @@ class Solution:
         """ practice: Approach 2: Breadth First Search O(N + M), O(N), nodes and edges """
         if not node:
             return node
-        
-        visited = {}
-        visited[node] = Node(node.val, [])
         queue = deque([node])
-
+        visited = {node: Node(node.val, [])}
         while queue:
             n = queue.popleft()
             for neighbor in n.neighbors:
@@ -94,6 +91,7 @@ class Solution:
                     visited[neighbor] = Node(neighbor.val, [])
                     queue.append(neighbor)
                 visited[n].neighbors.append(visited[neighbor])
+
         return visited[node]
 
 # @lc code=end

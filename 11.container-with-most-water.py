@@ -29,17 +29,30 @@ class Solution:
 
     #     return maxarea
     
+    # def maxArea(self, height: List[int]) -> int:
+    #     """ Approach 2: Two Pointer Approach O(n), O(1) """
+    #     maxarea = 0
+    #     left, right = 0, len(height) - 1
+    #     while left < right:
+    #         width = right - left
+    #         maxarea = max(maxarea, min(height[left], height[right]) * width)
+    #         if height[left] <= height[right]:
+    #             left += 1
+    #         else:
+    #             right -= 1
+    #     return maxarea
+    
     def maxArea(self, height: List[int]) -> int:
-        """ Approach 2: Two Pointer Approach O(n), O(1) """
+        """ Practice: Approach 2: Two Pointer Approach O(n), O(1) """
         maxarea = 0
-        left, right = 0, len(height) - 1
-        while left < right:
-            width = right - left
-            maxarea = max(maxarea, min(height[left], height[right]) * width)
-            if height[left] <= height[right]:
-                left += 1
+        l, r = 0, len(height) - 1
+        while l < r:
+            width = r - l
+            maxarea = max(maxarea, min(height[l], height[r]) * width)
+            if height[l] <= height[r]:
+                l += 1
             else:
-                right -= 1
+                r -= 1
         return maxarea
 
 

@@ -8,5 +8,7 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         
+
+        
 # @lc code=end
 

@@ -40,6 +40,7 @@ class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
         """ practice: Approach 3: Iterative Binary Search O(log2(n)), O(1) """
         l, r = 0, len(nums) - 1
+
         while l < r:
             mid = (l + r) // 2
             if nums[mid] > nums[mid + 1]:

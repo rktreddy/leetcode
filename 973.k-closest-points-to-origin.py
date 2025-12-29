@@ -182,12 +182,12 @@ class Solution:
 	# 	return res 
 
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        """ practice: Min Heap P(nlogk), O(k) """
-        minHeap = [(x * x + y * y, x, y) for x, y in points]
-        heapq.heapify(minHeap)
+        """ practice: Min Heap O(nlogk), O(k) """
+        heap = [(x * x + y * y, x, y) for x, y in points]
+        heapq.heapify(heap)
         res = []
         for _ in range(k):
-            _, x, y = heapq.heappop(minHeap)
+            _, x, y = heapq.heappop(heap)
             res.append((x, y))
         return res
 

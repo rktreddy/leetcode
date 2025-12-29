@@ -43,26 +43,27 @@ class Solution:
     #     return answer
     
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        """ practice: Approach 2: O(1) space approach O(N), (1)"""
+        """ practice: Approach 2: O(1) space approach O(N), O(1)"""
         length = len(nums)
         answer = [0] * length
-
         answer[0] = 1
         for i in range(1, length):
             answer[i] = answer[i - 1] * nums[i - 1]
 
-        R = 1
+        right = 1
         for i in range(length - 1, -1, -1):
-            answer[i] = answer[i] * R
-            R *= nums[i]
+            answer[i] *= right
+            right *= nums[i]
+
         return answer
-    
+
+
 # @lc code=end
 
-nums = [1, 2, 3, 4]
-length = 4
-answer = [0, 0, 0, 0]
-answer = [1, 1, 2, 6]
-answer = [24, 12, 8, 6]
-R = [24, 24, 12, 4]
+# nums = [1, 2, 3, 4]
+# length = 4
+# answer = [0, 0, 0, 0]
+# answer = [1, 1, 2, 6]
+# answer = [24, 12, 8, 6]
+# R = [24, 24, 12, 4]
 

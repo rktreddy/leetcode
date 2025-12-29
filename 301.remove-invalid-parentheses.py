@@ -86,81 +86,121 @@ class Solution:
         
 
     
+    # def removeInvalidParentheses(self, s):
+    #     """ Approach 2: Limited Backtracking  O(2^N), O(N) """
+    #     """
+    #     :type s: str
+    #     :rtype: List[str]
+    #     """
+
+    #     left = 0
+    #     right = 0
+
+    #     # First, we find out the number of misplaced left and right parentheses.
+    #     for char in s:
+
+    #         # Simply record the left one.
+    #         if char == '(':
+    #             left += 1
+    #         elif char == ')':
+    #             # If we don't have a matching left, then this is a misplaced right, record it.
+    #             right = right + 1 if left == 0 else right
+
+    #             # Decrement count of left parentheses because we have found a right
+    #             # which CAN be a matching one for a left.
+    #             left = left - 1 if left > 0 else left
+
+    #     result = {}
+    #     def recurse(s, index, left_count, right_count, left_rem, right_rem, expr):
+    #         # If we reached the end of the string, just check if the resulting expression is
+    #         # valid or not and also if we have removed the total number of left and right
+    #         # parentheses that we should have removed.
+    #         if index == len(s):
+    #             if left_rem == 0 and right_rem == 0:
+    #                 ans = "".join(expr)
+    #                 result[ans] = 1
+    #         else:
+
+    #             # The discard case. Note that here we have our pruning condition.
+    #             # We don't recurse if the remaining count for that parenthesis is == 0.
+    #             if (s[index] == '(' and left_rem > 0) or (s[index] == ')' and right_rem > 0):
+    #                 recurse(s, index + 1,
+    #                         left_count,
+    #                         right_count,
+    #                         left_rem - (s[index] == '('),
+    #                         right_rem - (s[index] == ')'), expr)
+
+    #             expr.append(s[index])    
+
+    #             # Simply recurse one step further if the current character is not a parenthesis.
+    #             if s[index] != '(' and s[index] != ')':
+    #                 recurse(s, index + 1,
+    #                         left_count,
+    #                         right_count,
+    #                         left_rem,
+    #                         right_rem, expr)
+    #             elif s[index] == '(':
+    #                 # Consider an opening bracket.
+    #                 recurse(s, index + 1,
+    #                         left_count + 1,
+    #                         right_count,
+    #                         left_rem,
+    #                         right_rem, expr)
+    #             elif s[index] == ')' and left_count > right_count:
+    #                 # Consider a closing bracket.
+    #                 recurse(s, index + 1,
+    #                         left_count,
+    #                         right_count + 1,
+    #                         left_rem,
+    #                         right_rem, expr)
+
+    #             # Pop for backtracking.
+    #             expr.pop()                 
+
+    #     # Now, the left and right variables tell us the number of misplaced left and
+    #     # right parentheses and that greatly helps pruning the recursion.
+    #     recurse(s, 0, 0, 0, left, right, [])     
+    #     return list(result.keys())
+
     def removeInvalidParentheses(self, s):
-        """ Approach 2: Limited Backtracking  O(2^N), O(N) """
+        """ cracking faang: Backtracking DFS O(2^N), O(N) """
         """
         :type s: str
         :rtype: List[str]
         """
 
-        left = 0
-        right = 0
+        self.longest_string = -1
+        self.res = set()
 
-        # First, we find out the number of misplaced left and right parentheses.
-        for char in s:
+        self.dfs(s, 0, [], 0, 0)
 
-            # Simply record the left one.
-            if char == '(':
-                left += 1
-            elif char == ')':
-                # If we don't have a matching left, then this is a misplaced right, record it.
-                right = right + 1 if left == 0 else right
-
-                # Decrement count of left parentheses because we have found a right
-                # which CAN be a matching one for a left.
-                left = left - 1 if left > 0 else left
-
-        result = {}
-        def recurse(s, index, left_count, right_count, left_rem, right_rem, expr):
-            # If we reached the end of the string, just check if the resulting expression is
-            # valid or not and also if we have removed the total number of left and right
-            # parentheses that we should have removed.
-            if index == len(s):
-                if left_rem == 0 and right_rem == 0:
-                    ans = "".join(expr)
-                    result[ans] = 1
+        return list(self.res)
+    def dfs(self, string, cur_idx, cur_res, l_count, r_count):
+        if cur_idx >= len(string):
+            if (l_count == r_count):
+                if len(cur_res) > self.longest_string:
+                    self.longest_string = len(cur_res)
+                    self.res = set()
+                    self.res.add("".join(cur_res))
+                elif len(cur_res) == self.longest_string:
+                    self.res.add("".join(cur_res))
+        else:
+            cur_char = string[cur_idx]
+            if cur_char == '(':
+                cur_res.append(cur_char)
+                self.dfs(string, cur_idx + 1, cur_res, l_count + 1, r_count)
+                cur_res.pop()
+                self.dfs(string, cur_idx + 1, cur_res, l_count, r_count)
+            elif cur_char == ')':
+                self.dfs(string, cur_idx + 1, cur_res, l_count, r_count)
+                if l_count > r_count:
+                    cur_res.append(cur_char)
+                    self.dfs(string, cur_idx + 1, cur_res, l_count, r_count + 1)
+                    cur_res.pop()
             else:
-
-                # The discard case. Note that here we have our pruning condition.
-                # We don't recurse if the remaining count for that parenthesis is == 0.
-                if (s[index] == '(' and left_rem > 0) or (s[index] == ')' and right_rem > 0):
-                    recurse(s, index + 1,
-                            left_count,
-                            right_count,
-                            left_rem - (s[index] == '('),
-                            right_rem - (s[index] == ')'), expr)
-
-                expr.append(s[index])    
-
-                # Simply recurse one step further if the current character is not a parenthesis.
-                if s[index] != '(' and s[index] != ')':
-                    recurse(s, index + 1,
-                            left_count,
-                            right_count,
-                            left_rem,
-                            right_rem, expr)
-                elif s[index] == '(':
-                    # Consider an opening bracket.
-                    recurse(s, index + 1,
-                            left_count + 1,
-                            right_count,
-                            left_rem,
-                            right_rem, expr)
-                elif s[index] == ')' and left_count > right_count:
-                    # Consider a closing bracket.
-                    recurse(s, index + 1,
-                            left_count,
-                            right_count + 1,
-                            left_rem,
-                            right_rem, expr)
-
-                # Pop for backtracking.
-                expr.pop()                 
-
-        # Now, the left and right variables tell us the number of misplaced left and
-        # right parentheses and that greatly helps pruning the recursion.
-        recurse(s, 0, 0, 0, left, right, [])     
-        return list(result.keys())
+                cur_res.append(cur_char)
+                self.dfs(string, cur_idx + 1, cur_res, l_count, r_count)
+                cur_res.pop()
 
 # @lc code=end
 

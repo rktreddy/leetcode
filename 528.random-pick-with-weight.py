@@ -79,25 +79,50 @@ class Solution:
     #             high = mid 
     #     return low 
         
+    # def __init__(self, w):
+    #     """ Approach 2: Prefix Sums with Binary Search O(n), O(n) """
+    #     self.prefix_sums = []
+    #     prefix_sum = 0
+    #     for weight in w:
+    #         prefix_sum += weight
+    #         self.prefix_sums.append(prefix_sum)
+    #     self.total_sum = prefix_sum
+
+    # def pickIndex(self):
+    #     """ Approach 2: Prefix Sums with Binary Search O(logn), O(1) """
+    #     target = self.total_sum * random.random()
+    #     low, high = 0, len(self.prefix_sums)
+    #     while low < high:
+    #         mid = (low + high) // 2
+    #         if self.prefix_sums[mid] < target:
+    #             low = mid + 1
+    #         else:
+    #             high = mid
+    #     return low
+
     def __init__(self, w):
         self.prefix_sums = []
         prefix_sum = 0
-        for weight in w:
-            prefix_sum += weight
+        for wt in w:
+            prefix_sum += wt
             self.prefix_sums.append(prefix_sum)
         self.total_sum = prefix_sum
 
     def pickIndex(self):
         target = self.total_sum * random.random()
-        low, high = 0, len(self.prefix_sums)
-        while low < high:
-            mid = (low + high) // 2
+        l, r = 0, len(self.prefix_sums)
+        while l < r:
+            mid = (l + r) // 2
             if self.prefix_sums[mid] < target:
-                low = mid + 1
+                l = mid + 1
             else:
-                high = mid
-        return low
+                r = mid
+        return l
+
         
+
+    # ## practice here
+
     
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(w)

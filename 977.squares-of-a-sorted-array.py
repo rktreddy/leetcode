@@ -29,17 +29,17 @@ class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
         """ practice: Approach 2: Two Pointer O(n), o(n) """
         n = len(nums)
-        result = [0] * n
-        l, r = 0, n - 1
+        left, right = 0, n - 1
+        res = [0] * n 
         for i in range(n - 1, -1, -1):
-            if abs(nums[l]) < abs(nums[r]):
-                sq = nums[r]
-                r -= 1
+            if abs(nums[left]) < abs(nums[right]):
+                res[i] = nums[right] * nums[right]
+                right -= 1
             else:
-                sq = nums[l]
-                l += 1
-            result[i] = sq * sq
-        return result
+                res[i] = nums[left] * nums[left]
+                left += 1
+        return res
+    
             
 # @lc code=end
 

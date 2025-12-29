@@ -126,7 +126,6 @@ class Solution:
         """ practice: Approach 2: Iterative using parent pointers O(N), O(N) """
         stack = [root]
         parent = {root: None}
-
         while p not in parent or q not in parent:
             node = stack.pop()
             if node.left:
@@ -135,7 +134,6 @@ class Solution:
             if node.right:
                 parent[node.right] = node
                 stack.append(node.right)
-
         visited = set()
         while p:
             visited.add(p)
@@ -219,6 +217,24 @@ class Solution:
     #             stack.pop()
 
     #     return None
+
+    # def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    #     """Recursive DFS approach: O(N) time, O(H) space (H = tree height)"""
+    #     # Base case: if we hit None or one of the targets, return it
+    #     if not root or root == p or root == q:
+    #         return root
+
+    #     # Recurse left and right
+    #     left = self.lowestCommonAncestor(root.left, p, q)
+    #     right = self.lowestCommonAncestor(root.right, p, q)
+
+    #     # If both sides return non-null, root is the LCA
+    #     if left and right:
+    #         return root
+
+    #     # Otherwise, return whichever side is non-null
+    #     return left if left else right
+
 
 # @lc code=end
 

@@ -264,7 +264,12 @@ class Solution:
     #     return -1
 
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
-        """ practice: Neetcode solution (BFS) O(N^2), O(N^2) N = len(grid) """
+        """ practice: Neetcode solution (BFS) O(N), O(N) N = len(grid) """
+
+        # edge case
+        if grid[0][0] or grid[-1][-1]:
+            return -1
+
         n = len(grid)
         queue = deque([(0, 0, 1)]) # r, c, length
         visited = set((0, 0)) # r, c

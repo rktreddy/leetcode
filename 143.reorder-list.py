@@ -41,32 +41,75 @@ class Solution:
     #         first.next, first = second, first.next
     #         second.next, second = first, second.next
         
-        def reorderList(self, head: Optional[ListNode]) -> None:
-            """ Practice """
-            # edge case
-            if not head:
-                  return
+    #     def reorderList(self, head: Optional[ListNode]) -> None:
+    #         """ Practice: Approach 1: Reverse the Second Part of the List 
+    # #     and Merge Two Sorted Lists O(N), O(1) """
+    #         # edge case
+    #         if not head:
+    #               return
             
-            # find the mid
-            slow = fast = head 
-            while fast and fast.next:
-                slow = slow.next
-                fast = fast.next.next
+    #         # find the mid
+    #         slow = fast = head 
+    #         while fast and fast.next:
+    #             slow = slow.next
+    #             fast = fast.next.next
 
-            # reverse second half
-            prev, curr = None, slow 
-            while curr:
-                temp = curr.next
-                curr.next = prev 
-                prev = curr 
-                curr = temp 
+    #         # reverse second half
+    #         prev, curr = None, slow 
+    #         while curr:
+    #             temp = curr.next
+    #             curr.next = prev 
+    #             prev = curr 
+    #             curr = temp 
             
-            # merge two halves
-            first, second = head, prev 
-            while second.next:
-                 first.next, first = second, first.next 
-                 second.next, second = first, second.next
-            
+    #         # merge two halves
+    #         first, second = head, prev 
+    #         while second.next:
+    #              first.next, first = second, first.next 
+    #              second.next, second = first, second.next
+
+    # def reorderList(self, head: Optional[ListNode]) -> None:
+    #     """ Practice: Approach 1: Reverse the Second Part of the List 
+    #      and Merge Two Sorted Lists O(N), O(1) """
+    #     if not head:
+    #         return
+        
+    #     slow = fast = head
+    #     while fast and fast.next:
+    #         slow = slow.next
+    #         fast = fast.next.next
+
+    #     prev, curr = None, slow
+    #     while curr:
+    #         temp_next = curr.next
+    #         curr.next = prev
+    #         prev = curr
+    #         curr = temp_next
+
+    #     first, second = head, prev
+    #     while second.next:
+    #         first.next, first = second, first.next
+    #         second.next, second = first, second.next
+
+     def reorderList(self, head: Optional[ListNode]) -> None:
+        """ crackig faang: Approach 1: Reverse the Second Part of the List 
+         and Merge Two Sorted Lists O(N), O(1) """
+        if not head:
+            return
+        
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        prev, curr = None, slow
+        while curr:
+            curr.next, prev, curr = prev, curr, curr.next 
+        first, second = head, prev
+        while second.next:
+            first.next, first = second, first.next
+            second.next, second = first, second.next
+        
 
 # @lc code=end
 

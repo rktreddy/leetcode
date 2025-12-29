@@ -38,26 +38,10 @@ class Solution:
     #     dfs(root)
     #     return ans
 
-    # def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-    #     """ Approach 1: Depth First Search (iterative) O(N), O(N) """
-    #     ans = 0
-    #     stack = [root]
-    #     while stack:
-    #         node = stack.pop()
-    #         if node:
-    #             if low <= node.val <= high:
-    #                 ans += node.val
-    #             if low < node.val:
-    #                 stack.append(node.left)
-    #             if node.val < high:
-    #                 stack.append(node.right)
-    #     return ans 
-
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-        """ pratice; Approach 1: Depth First Search (iterative) O(N), O(N) """
+        """ Approach 1: Depth First Search (iterative) O(N), O(N) """
         ans = 0
         stack = [root]
-
         while stack:
             node = stack.pop()
             if node:
@@ -67,7 +51,24 @@ class Solution:
                     stack.append(node.left)
                 if node.val < high:
                     stack.append(node.right)
-        return ans
+        return ans 
+    
+# @lc code=end
+
+# def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+    #     """ pratice; Approach 1: Depth First Search (iterative) O(N), O(N) """
+    #     ans = 0
+    #     stack = [root]
+    #     while stack:
+    #         node = stack.pop()
+    #         if node:
+    #             if low <= node.val <= high:
+    #                 ans += node.val
+    #         if low < node.val:
+    #             stack.append(node.left)
+    #         if node.val < high:
+    #             stack.append(node.right)
+    #     return ans
 
     # def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
     #     """ Neetcode solution O(N), O(N) """
@@ -90,6 +91,3 @@ class Solution:
     #         return self.rangeSumBST(root.right, low, high)
     #     return root.val + self.rangeSumBST(root.left, low, high) \
     #                     + self.rangeSumBST(root.right, low, high)
-    
-# @lc code=end
-

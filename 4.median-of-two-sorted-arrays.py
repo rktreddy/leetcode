@@ -109,18 +109,17 @@ class Solution:
 
         if len(nums1) > len(nums2):
             return self.findMedianSortedArrays(nums2, nums1)
-        
         m, n = len(nums1), len(nums2)
 
-        left, right = 0, m
-        while left <= right:
-            partitionA = (left + right) // 2
-            partitionB = (m + n + 1) // 2 - partitionA
+        l, r = 0, m
+        while l <= r:
+            midA = l + (r - l) // 2
+            midB = (m + n + 1) // 2 - midA
 
-            maxleftA = nums1[partitionA - 1] if partitionA > 0 else float("-inf")
-            minrightA = nums1[partitionA] if partitionA < m else float("inf")
-            maxleftB = nums2[partitionB - 1] if partitionB > 0 else float("-inf")
-            minrightB = nums2[partitionB] if partitionB < n else float("inf")
+            maxleftA = nums1[midA - 1] if midA > 0 else float('-inf')
+            minrightA = nums1[midA] if midA < m else float('inf')
+            maxleftB = nums2[midB - 1] if midB > 0 else float('-inf')
+            minrightB = nums2[midB] if midB < n else float('inf')
 
             if maxleftA <= minrightB and maxleftB <= minrightA:
                 if (m + n) % 2 == 0:
@@ -128,10 +127,10 @@ class Solution:
                 else:
                     return max(maxleftA, maxleftB)
             elif maxleftA > minrightB:
-                right = partitionA - 1
+                r = midA - 1
             else:
-                left = partitionA + 1
-                    
+                l = midA + 1
+   
 
 # @lc code=end
 

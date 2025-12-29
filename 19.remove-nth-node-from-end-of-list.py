@@ -52,7 +52,7 @@ class Solution:
     #     return dummy.next
     
     # def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
-    #     """ Neetcode solution """
+    #     """ Neetcode Two Pointers O(n), O(1) """
     #     dummy = ListNode(0, head)
     #     left = dummy
     #     right = head
@@ -69,12 +69,29 @@ class Solution:
     #     left.next = left.next.next
     #     return dummy.next
     
+    # def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+    #     """ practice: Neetcode Two Pointers O(n), O(1) """
+    #     dummy = ListNode(0, head)
+    #     left = dummy
+    #     right = head
+
+    #     while n > 0:
+    #         right = right.next
+    #         n -= 1
+
+    #     while right:
+    #         left = left.next
+    #         right = right.next
+        
+    #     left.next = left.next.next
+
+    #     return dummy.next
+    
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
-        """ practice: Neetcode solution """
+        """ practice: Neetcode Two Pointers O(n), O(1) """
         dummy = ListNode(0, head)
         left = dummy
         right = head
-
         while n > 0:
             right = right.next
             n -= 1
@@ -82,8 +99,8 @@ class Solution:
         while right:
             left = left.next
             right = right.next
-        
-        left.next = left.next.next
+
+        left = left.next.next
 
         return dummy.next
 

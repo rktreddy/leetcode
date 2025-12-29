@@ -179,30 +179,111 @@ class Solution:
     #     ans += last_val
     #     return ans
     
-    def calculate(self, s: str) -> int:
-        """ practice: Without Using stack: O(n), O(1) """
-        last_val, val, ans = 0, 0, 0
-        sign = '+'
-        n = len(s)
+    # def calculate(self, s: str) -> int:
+    #     """ practice: Without Using stack: O(n), O(1) """
+    #     last_val, val, ans = 0, 0, 0
+    #     sign = '+'
+    #     n = len(s)
 
+    #     for i, c in enumerate(s):
+    #         if c.isdigit():
+    #             val = val * 10 + int(c)
+
+    #         if i == n - 1 or c in '+-*/':
+    #             if sign == '+' or sign == '-':
+    #                 ans += last_val
+    #                 last_val = val if sign == '+' else -val
+    #             elif sign == '*':
+    #                 last_val *= val
+    #             elif sign == '/':
+    #                 last_val = int(last_val / val)
+
+    #             sign = c
+    #             val = 0
+
+    #     ans += last_val
+    #     return ans  
+    
+    # def calculate(self, s: str) -> int:
+    #     # """Hybrid version: readable + O(1) space"""
+    #     s = s.replace(' ', '')  # optional: remove spaces for clarity
+    #     n = len(s)
+    #     total, last, num = 0, 0, 0
+    #     sign = '+'
+
+    #     for i, c in enumerate(s):
+    #         if c.isdigit():
+    #             num = num * 10 + int(c)
+
+    #         # when we hit an operator or end of string
+    #         if i == n - 1 or c in '+-*/':
+    #             if sign == '+':
+    #                 total += last
+    #                 last = num
+    #             elif sign == '-':
+    #                 total += last
+    #                 last = -num
+    #             elif sign == '*':
+    #                 last *= num
+    #             elif sign == '/':
+    #                 last = int(last / num)
+
+    #             sign = c
+    #             num = 0
+
+    #     total += last
+    #     return total
+    
+    # def calculate(self, s: str) -> int:
+    #     # """practice: Hybrid version: readable + O(1) space"""
+    #     # s = s.replace(' ', '') # this is not needed since no else
+    #     n = len(s)
+    #     total, last, num = 0, 0, 0
+    #     sign = '+'
+    #     for i, c in enumerate(s):
+    #         if c.isdigit():
+    #             num = 10 * num + int(c)
+    #         if i == n - 1 or c in '+-*/':
+    #             if sign == '+':
+    #                 total += last
+    #                 last = num
+    #             elif sign == '-':
+    #                 total += last
+    #                 last = -num
+    #             elif sign == '*':
+    #                 last *= num
+    #             elif sign == '/':
+    #                 last = int(last / num)
+            
+    #             sign = c
+    #             num = 0
+
+    #     total += last
+
+    #     return total
+    
+     def calculate(self, s: str) -> int:
+        # """practice: Hybrid version: readable + O(1) space """
+        res = prev = cur = 0
+        sign = '+'
         for i, c in enumerate(s):
             if c.isdigit():
-                val = val * 10 + int(c)
-
-            if i == n - 1 or c in '+-*/':
-                if sign == '+' or sign == '-':
-                    ans += last_val
-                    last_val = val if sign == '+' else -val
+                cur = cur * 10 + int(c)
+            if i == len(s) - 1 or c in '+-*/':
+                if sign in '+-':
+                    res += prev
+                    prev = cur if sign == '+' else -cur
                 elif sign == '*':
-                    last_val *= val
+                    prev *= cur
                 elif sign == '/':
-                    last_val = int(last_val / val)
+                    prev = int(prev / cur)
 
                 sign = c
-                val = 0
+                cur = 0
+        res += prev
+        return res
 
-        ans += last_val
-        return ans
+
 
     
 # @lc code=end

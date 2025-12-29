@@ -37,6 +37,7 @@ class Solution:
             cum_sum = max(num, cum_sum + num)
             max_sum = max(max_sum, cum_sum)
         return max_sum
+
         
 
     # def maxSubArray(self, nums: List[int]) -> int:

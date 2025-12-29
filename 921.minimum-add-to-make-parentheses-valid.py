@@ -43,19 +43,33 @@ class Solution:
     #     # Add the remaining open brackets as closing brackets would be required.
     #     return min_adds_required + open_brackets
 
+    # def minAddToMakeValid(self, s: str) -> int:
+    #     """ practice: Approach: Open Bracket Counter O(n), O(1) """
+    #     open_pare = 0
+    #     min_adds = 0
+    #     for c in s:
+    #         if c == '(':
+    #             open_pare += 1
+    #         else:
+    #             if open_pare > 0:
+    #                 open_pare -= 1
+    #             else:
+    #                 min_adds += 1
+    #     return open_pare + min_adds
+    
     def minAddToMakeValid(self, s: str) -> int:
         """ practice: Approach: Open Bracket Counter O(n), O(1) """
-        open_pare = 0
-        min_adds = 0
+        open_paren = 0
+        min_add = 0
         for c in s:
             if c == '(':
-                open_pare += 1
-            else:
-                if open_pare > 0:
-                    open_pare -= 1
+                open_paren += 1
+            elif c == ')':
+                if open_paren:
+                    open_paren -= 1
                 else:
-                    min_adds += 1
-        return open_pare + min_adds
+                    min_add += 1
+        return open_paren + min_add
 
 
 # @lc code=end

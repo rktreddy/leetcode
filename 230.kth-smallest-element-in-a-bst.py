@@ -19,20 +19,34 @@ class Solution:
         
     #     return inorder(root)[k - 1]
         
-    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        """ Approach 2: Iterative Inorder Traversal O(H + k), O(N) """
-        stack = []
+    # def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+    #     """ Approach 2: Iterative Inorder Traversal O(H + k), O(N) """
+    #     stack = []
 
+    #     while True:
+    #         while root:
+    #             stack.append(root)
+    #             root = root.left
+
+    #         root = stack.pop()
+    #         k -= 1
+    #         if not k:
+    #             return root.val
+    #         root = root.right
+
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        """ practice: Approach 2: Iterative Inorder Traversal O(H + k), O(N) """
+        stack = []
         while True:
             while root:
                 stack.append(root)
                 root = root.left
-
             root = stack.pop()
             k -= 1
             if not k:
                 return root.val
             root = root.right
+
             
         
 # @lc code=end

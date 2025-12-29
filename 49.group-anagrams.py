@@ -22,26 +22,28 @@ class Solution:
     #             count[ord(c) - ord("a")] += 1
     #         ans[tuple(count)].append(s)
     #     return list(ans.values())
+
     
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        """ practice: Approach 2: Categorize by Count O(NK), O(NK) """
-        ans = defaultdict(list)
-        for s in strs:
-            count = [0] * 26
-            for c in s:
-                count[ord(c) - ord('a')] += 1
-            ans[tuple(count)].append(s)
-        return list(ans.values())   
-                            
-    # def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-    #     """ Neetcode O(m*n), O(m) """
-    #     res = defaultdict(list)
-    #     for s in strs:
-    #         count = [0] * 26
-    #         for c in s:
-    #             count[ord(c) - ord('a')] += 1
-    #         res[tuple(count)].append(s)
-    #     return list(res.values())
-        
 # @lc code=end
+
+
+# def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+#         """ Neetcode O(m*n), O(m) """
+#         ans = defaultdict(list)
+#         for s in strs:
+#             count = [0] * 26
+#             for c in s:
+#                 count[ord(c) - ord("a")] += 1
+#             ans[tuple(count)].append(s)
+#         return list(ans.values())
+
+# def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+#         """ practice: Approach 2: Categorize by Count O(NK), O(NK) """
+#         res = defaultdict(list)
+#         for s in strs:
+#             count = [0] * 26
+#             for c in s:
+#                 count[ord(c) - ord('a')] += 1
+#             res[tuple(count)].append(s)
+#         return list(res.values())
 

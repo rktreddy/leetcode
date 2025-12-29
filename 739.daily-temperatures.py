@@ -50,19 +50,28 @@ class Solution:
 
     #     return answer
     
+    # def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+    #     """ practice: Approach 1: Monotonic Stack O(n), O(n) """
+    #     n = len(temperatures)
+    #     answer = [0] * n
+    #     stack = []
+    #     for curr_day, curr_temp in enumerate(temperatures):
+    #         while stack and temperatures[stack[-1]] < curr_temp:
+    #             prev_day = stack.pop()
+    #             answer[prev_day] = curr_day - prev_day
+    #         stack.append(curr_day)
+    #     return answer
+    
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        """ practice: Approach 1: Monotonic Stack O(n), O(n) """
-        n = len(temperatures)
-        answer = [0] * n
+        """ cracking fancg Approach 1: Monotonic Stack O(n), O(n) """
         stack = []
-
-        for curr_day, curr_temp in enumerate(temperatures):
-            while stack and temperatures[stack[-1]] < curr_temp:
+        res = [0] * len(temperatures)
+        for cur_day, cur_temp in enumerate(temperatures):
+            while stack and temperatures[stack[-1]] < cur_temp:
                 prev_day = stack.pop()
-                answer[prev_day] = curr_day - prev_day
-            stack.append(curr_day)
-
-        return answer
+                res[prev_day] = cur_day - prev_day
+            stack.append(cur_day)
+        return res
     
     # def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
     #     """ Approach 2: Array, Optimized Space O(n), O(1) """

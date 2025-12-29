@@ -23,16 +23,16 @@ class Solution:
     
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         """ practice: Approach 1: Two Pointers O(n), O(1) """
-        low, high = 0, len(numbers) - 1
-        while low < high:
-            two_sum = numbers[low] + numbers[high]
+        l, r = 0, len(numbers) - 1
+        while l < r:
+            two_sum = numbers[l] + numbers[r]
             if two_sum == target:
-                return [low + 1, high + 1]
+                return [l + 1, r + 1]
             elif two_sum < target:
-                low += 1
+                l += 1
             else:
-                high -= 1
-        return [-1, -1]
+                r -= 1
+        return [-1. -1]
 
 # @lc code=end
 

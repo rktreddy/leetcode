@@ -16,16 +16,22 @@ class Solution:
     #             return [hashMap[diff], i]
     #         hashMap[n] = i
 
+    # def twoSum(self, nums: List[int], target: int) -> List[int]:
+    #     """ practice """
+    #     hashmap = {}
+    #     for i, n in enumerate(nums):
+    #         diff = target - n
+    #         if diff in hashmap:
+    #             return [i, hashmap[diff]]
+    #         hashmap[n] = i
+
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        """ practice """
         hashmap = {}
         for i, n in enumerate(nums):
             diff = target - n
             if diff in hashmap:
                 return [i, hashmap[diff]]
             hashmap[n] = i
-
-        
         
 # @lc code=end
 

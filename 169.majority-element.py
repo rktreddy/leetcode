@@ -85,16 +85,26 @@ class Solution:
 
         # return majority_element_rec(0, len(nums) - 1)
 
-        """ Approach 7: Boyer-Moore Voting Algorithm O(n), O(1)"""
-        count = 0
-        candidate = None
+        # """ Approach 7: Boyer-Moore Voting Algorithm O(n), O(1)"""
+        # count = 0
+        # candidate = None
 
+        # for num in nums:
+        #     if count == 0:
+        #         candidate = num
+        #     count += 1 if num == candidate else -1
+
+        # return candidate
+
+        """ practice: Approach 7: Boyer-Moore Voting Algorithm O(n), O(1)"""
+        count = 0
+        candidate = 1
         for num in nums:
             if count == 0:
                 candidate = num
-            count += 1 if num == candidate else -1
-
+            count += 1 if candidate == num else -1
         return candidate
+
     
 # @lc code=end
 

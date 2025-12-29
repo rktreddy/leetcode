@@ -115,22 +115,40 @@ class Solution:
     #     dfs(root)
     #     return diameter
     
-    # practice
+    # def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+    #     """ practice: DFS recursive O(N), O(N) """
+    #     diameter = 0
+    #     def dfs(node):
+    #         nonlocal diameter
+    #         if not node:
+    #             return 0
+    #         left = dfs(node.left)
+    #         right = dfs(node.right)
+
+    #         diameter = max(diameter, left + right)
+
+    #         return 1 + max(left, right)
+    #     dfs(root)
+    #     return diameter
+    
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        diameter = 0
-        def dfs(node):
-            nonlocal diameter
-            if not node:
-                return 0
-            left = dfs(node.left)
-            right = dfs(node.right)
-
-            diameter = max(diameter, left + right)
-
-            return 1 + max(left, right)
+        """ practice: DFS recursive O(N), O(N) """
+        self.diameter = 0
+        self.dfs(root)
         
-        dfs(root)
-        return diameter
+        return self.diameter
+    
+    def dfs(self, node):
+        if not node:
+            return 0
+        # if not node.left and not node.right:
+        #     return 1
+        l_length = self.dfs(node.left)
+        r_length = self.dfs(node.right)
+        self.diameter = max(self.diameter, l_length + r_length)
+
+        return 1 + max(l_length, r_length)
+        
 
 
     # def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:

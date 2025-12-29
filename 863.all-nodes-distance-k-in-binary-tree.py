@@ -107,38 +107,103 @@ class Solution:
                     
     #     return answer
 
-    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
-        """practice: Approach 3: Breadth-First Search on Equivalent Graph O(n), O(n) """
-        graph = collections.defaultdict(list)
-        def build_graph(cur, parent):
-            if cur and parent:
-                graph[cur.val].append(parent.val)
-                graph[parent.val].append(cur.val)
-            if cur.left:
-                build_graph(cur.left, cur)
-            if cur.right:
-                build_graph(cur.right, cur)
+    # def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+    #     """practice: Approach 3: Breadth-First Search on Equivalent Graph O(n), O(n) """
+    #     graph = collections.defaultdict(list)
+    #     def build_graph(cur, parent):
+    #         if cur and parent:
+    #             graph[cur.val].append(parent.val)
+    #             graph[parent.val].append(cur.val)
+    #         if cur.left:
+    #             build_graph(cur.left, cur)
+    #         if cur.right:
+    #             build_graph(cur.right, cur)
 
-        build_graph(root, None)
+    #     build_graph(root, None)
 
-        answer = []
-        visited = set([target.val])
+    #     answer = []
+    #     visited = set([target.val])
 
-        queue = collections.deque([(target.val, 0)])
+    #     queue = collections.deque([(target.val, 0)])
 
-        while queue:
-            cur, distance = queue.popleft()
+    #     while queue:
+    #         cur, distance = queue.popleft()
 
-            if distance == k:
-                answer.append(cur)
-                continue
+    #         if distance == k:
+    #             answer.append(cur)
+    #             continue
 
-            for neighbor in graph[cur]:
-                if neighbor not in visited:
-                    visited.add(neighbor)
-                    queue.append((neighbor, distance + 1))
+    #         for neighbor in graph[cur]:
+    #             if neighbor not in visited:
+    #                 visited.add(neighbor)
+    #                 queue.append((neighbor, distance + 1))
                 
-        return answer
+    #     return answer
+    
+    # def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+    #     """crack faang: Approach 3: Breadth-First Search on Equivalent Graph O(n), O(n) """
+    #     if not k:
+    #         return [target.val]
+    #     graph = collections.defaultdict(list)
+    #     queue = collections.deque([root])
+    #     while queue:
+    #         node = queue.popleft()
+    #         if node.left:
+    #             graph[node].append(node.left)
+    #             graph[node.left].append(node)
+    #             queue.append(node.left)
+    #         if node.right:
+    #             graph[node].append(node.right)
+    #             graph[node.right].append(node)
+    #             queue.append(node.right)
+
+    #     queue = collections.deque([(target, 0)]) # node, disstancxe
+    #     visited = set([target])
+    #     res = []
+
+    #     while queue:
+    #         node, distance = queue.popleft()
+    #         if distance == k:
+    #             res.append(node.val)
+    #         else:
+    #             for nei in graph[node]:
+    #                 if nei not in visited:
+    #                     queue.append((nei, distance + 1))
+    #                     visited.add(nei)
+
+    #     return res
+
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        """practice: crack faang: Approach 3: Breadth-First Search on Equivalent Graph O(n), O(n) """
+        if not k:
+            return [target.val]
+        graph = collections.defaultdict(list)
+        queue = collections.deque([root])
+        while queue:
+            node = queue.popleft()
+            if node.left:
+                graph[node].append(node.left)
+                graph[node.left].append(node)
+                queue.append(node.left)
+            if node.right:
+                graph[node].append(node.right)
+                graph[node.right].append(node)
+                queue.append(node.right)
+
+        queue = collections.deque([(target, 0)]) # target, distance
+        visited = set([target])
+        res = []
+        while queue:
+            node, distance = queue.popleft()
+            if distance == k:
+                res.append(node.val)
+            else:
+                for nei in graph[node]:
+                    if nei not in visited:
+                        queue.append((nei, distance + 1))
+                        visited.add(nei)
+        return res
+
 
 # @lc code=end
 

@@ -101,13 +101,25 @@ class Solution:
     #             heapq.heappop(heap)
     #     return heap[0]
     
+    # def findKthLargest(self, nums, k):
+    #     """ practice: Approach 2: Min-Heap O(nlogk), o(k)"""
+    #     heap = []
+    #     for num in nums:
+    #         heapq.heappush(heap, num)
+    #         if len(heap) > k:
+    #             heapq.heappop(heap)
+    #     return heap[0]
+    
     def findKthLargest(self, nums, k):
-        """ practice """
+        """ cracking faang: Approach 2: Min-Heap O(nlogk), o(k)"""
         heap = []
         for num in nums:
-            heapq.heappush(heap, num)
-            if len(heap) > k:
-                heapq.heappop(heap)
+            if len(heap) < k:
+                heapq.heappush(heap, num)
+            else:
+                if num > heap[0]:
+                    heapq.heappop(heap)
+                    heapq.heappush(heap, num)
         return heap[0]
     
     # # Approach 3: Quickselect O(n) to O(n^2), O(n)

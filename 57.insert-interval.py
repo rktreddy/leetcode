@@ -99,28 +99,71 @@ class Solution:
     #             merged[-1][1] = max(merged[-1][1], interval[1])
     #     return merged
     
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        """ practice: Approach 2: Binary Search O(N), O(logN_) """
-        if not intervals:
-            return [newInterval]
-        target = newInterval[0]
-        l, r = 0, len(intervals) - 1
-        while l <= r:
-            mid = (l + r) // 2
-            if intervals[mid][0] < target:
-                l = mid + 1
-            else:
-                r = mid - 1
-        
-        intervals.insert(l, newInterval)
+    # def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+    #     """ practice: Approach 2: Binary Search O(N), O(N) """
+    #     if not intervals:
+    #         return [newInterval]
+    #     target = newInterval[0]
+    #     l, r = 0, len(intervals) - 1
+    #     while l <= r:
+    #         mid = (l + r) // 2
+    #         if intervals[mid][0] < target:
+    #             l = mid + 1
+    #         else:
+    #             r = mid - 1
+    #     intervals.insert(l, newInterval)
+    #     merged = []
+    #     for interval in intervals:
+    #         if not merged or merged[-1][1] < interval[0]:
+    #             merged.append(interval)
+    #         else:
+    #             merged[-1][1] = max(merged[-1][1], interval[1])
+    #     return merged
+    
+    # def insert(self, intervals, newInterval):
+    #     res = []
+    #     i = 0
+    #     n = len(intervals)
 
-        merged = []
-        for interval in intervals:
-            if not merged or merged[-1][1] < interval[0]:
-                merged.append(interval)
-            else:
-                merged[-1][1] = max(merged[-1][1], interval[1])
-        return merged
-        
+    #     # 1. Add all intervals before newInterval
+    #     while i < n and intervals[i][1] < newInterval[0]:
+    #         res.append(intervals[i])
+    #         i += 1
+
+    #     # 2. Merge overlapping intervals
+    #     while i < n and intervals[i][0] <= newInterval[1]:
+    #         newInterval[0] = min(newInterval[0], intervals[i][0])
+    #         newInterval[1] = max(newInterval[1], intervals[i][1])
+    #         i += 1
+
+    #     res.append(newInterval)
+
+    #     # 3. Add remaining intervals
+    #     while i < n:
+    #         res.append(intervals[i])
+    #         i += 1
+
+    #     return res
+    
+    def insert(self, intervals, newInterval):
+        """ practuce: """
+        res = []
+        i = 0
+        n = len(intervals)
+        while i < n and intervals[i][1] < newInterval[0]:
+            res.append(intervals[i])
+            i += 1
+        while i < n and intervals[i][0] <= newInterval[1]:
+            newInterval[0] = min(newInterval[0], intervals[i][0])
+            newInterval[1] = max(newInterval[1], intervals[i][1])
+            i += 1
+        res.append(newInterval)
+        while i < n:
+            res.append(intervals[i])
+            i += 1
+        return res
+
+
 # @lc code=end
 
+# """ chatgpt: one-pass approach (standard interview answer): O(N), O(N) """

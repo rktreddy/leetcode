@@ -99,37 +99,73 @@ class Solution:
 
     #     return num_islands
     
-    def numIslands(self, grid: List[List[str]]) -> int:
-        """ practice: Approach #2: BFS [Accepted] O(M x N), O(min (M, N)) """
-        if not grid:
-            return 0
-        nr, nc = len(grid), len(grid[0])
-        num_islands = 0
-        for r in range(nr):
-            for c in range(nc):
-                if grid[r][c] == '1':
-                    grid[r][c] = '0'
-                    num_islands += 1
-                    neighbors = []
-                    neighbors.append((r, c))
-                    while neighbors:
-                        row, col = neighbors.pop()
-                        if row - 1 >= 0 and grid[row -1][col] == '1':
-                            grid[row - 1][col] = '0'
-                            neighbors.append((row - 1, col))
-                        if row + 1 < nr and grid[row + 1][col] == '1':
-                            grid[row + 1][col] = '0'
-                            neighbors.append((row + 1, col))
-                        if col - 1 >= 0 and grid[row][col - 1] == '1':
-                            grid[row][col - 1] = '0'
-                            neighbors.append((row - 1, col))
-                        if col + 1 < nc and grid[row][col + 1] == '1':
-                            grid[row][col + 1] = '0'
-                            neighbors.append((row, col + 1))
-        return num_islands
+    # def numIslands(self, grid: List[List[str]]) -> int:
+    #     """ practice: Approach #2: BFS [Accepted] O(M x N), O(min (M, N)) """
+    #     if not grid:
+    #         return 0
+    #     nr, nc = len(grid), len(grid[0])
+    #     num_islands = 0
+    #     for r in range(nr):
+    #         for c in range(nc):
+    #             if grid[r][c] == '1':
+    #                 grid[r][c] = '0'
+    #                 num_islands += 1
+    #                 neighbors = []
+    #                 neighbors.append((r, c))
+    #                 while neighbors:
+    #                     row, col = neighbors.pop()
+    #                     if row - 1 >= 0 and grid[row -1][col] == '1':
+    #                         grid[row - 1][col] = '0'
+    #                         neighbors.append((row - 1, col))
+    #                     if row + 1 < nr and grid[row + 1][col] == '1':
+    #                         grid[row + 1][col] = '0'
+    #                         neighbors.append((row + 1, col))
+    #                     if col - 1 >= 0 and grid[row][col - 1] == '1':
+    #                         grid[row][col - 1] = '0'
+    #                         neighbors.append((row, col - 1))
+    #                     if col + 1 < nc and grid[row][col + 1] == '1':
+    #                         grid[row][col + 1] = '0'
+    #                         neighbors.append((row, col + 1))
+    #     return num_islands
 
                 
+    # def numIslands(self, grid: List[List[str]]) -> int:
+    #     """ cracking faang: Approach #2: BFS [Accepted] O(M x N), O(min (M, N)) """
+    #     num_islands = 0
+    #     directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+    #     def set_islands_zero(grid, r, c):                
+    #         if (0 <= r < len(grid)) and (0 <= c < len(grid[0])) and grid[r][c] == "1":
+    #             grid[r][c] = "0"
+
+    #             for dr, dc in directions:
+    #                 set_islands_zero(grid, r + dr, c + dc)
+
+    #     for row in range(len(grid)):
+    #         for col in range(len(grid[0])):
+    #              if grid[row][col] == "1":
+    #                   num_islands += 1
+    #                   set_islands_zero(grid, row, col)
+    #     return num_islands
     
+     def numIslands(self, grid: List[List[str]]) -> int:
+        """ practice: cracking faang: Approach #2: DFS [Accepted] O(M x N), O(min (M, N)) """
+        num_islands = 0
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+        def set_islands_zero(grid, row, col):
+            if (0 <= row < len(grid)) and (0<= col < len(grid[0])) and grid[row][col] == "1":
+                grid[row][col] = "0"
+                for dr, dc in directions:
+                    set_islands_zero(grid, row + dr, col + dc)
+
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == "1":
+                    num_islands += 1
+                    set_islands_zero(grid, row, col)
+        return num_islands
+
 
 
 # class UnionFind:

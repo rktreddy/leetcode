@@ -93,17 +93,45 @@ class Solution:
     #         res = max(res, r - l + 1)
     #     return res
     
+    # def lengthOfLongestSubstring(self, s: str) -> int:
+    #     """ practice: neetcode: sliding window optimal O(n), O(m) """
+    #     mp = {}
+    #     res = 0
+    #     l = 0
+    #     for r in range(len(s)):
+    #         if s[r] in mp:
+    #             l = max(l, mp[s[r]] + 1)
+    #         mp[s[r]] = r
+    #         res = max(res, r - l + 1)
+    #     return res
+    
+    # def lengthOfLongestSubstring(self, s: str) -> int:
+    #     """ neetcode: sliding window O(n), O(m) """
+    #     charSet = set()
+    #     l = 0
+    #     res = 0
+
+    #     for r in range(len(s)):
+    #         while s[r] in charSet:
+    #             charSet.remove(s[l])
+    #             l += 1
+    #         charSet.add(s[r])
+    #         res = max(res, r - l + 1)
+    #     return res
+    
     def lengthOfLongestSubstring(self, s: str) -> int:
-        """ practice: neetcode: sliding window optimal O(n), O(m) """
-        mp = {}
-        res = 0
+        """ practice: neetcode: sliding window O(n), O(m) """
+        charSet = set()
+        longest = 0
         l = 0
         for r in range(len(s)):
-            if s[r] in mp:
-                l = max(l, mp[s[r]] + 1)
-            mp[s[r]] = r
-            res = max(res, r - l + 1)
-        return res
+            while s[r] in charSet:
+                charSet.remove(s[l])
+                l += 1
+            charSet.add(s[r])
+            longest = max(longest, r - l + 1)
+        return longest
+
 
     # def lengthOfLongestSubstring(self, s: str) -> int:
     #     """ Top upvoted solution on leetcode"""

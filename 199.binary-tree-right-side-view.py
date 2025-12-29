@@ -158,23 +158,43 @@ class Solution:
 
     #     return right_side_view
 
-    def rightSideView(self, root: TreeNode | None) -> list[int]:
-        """ practice: BFS O(N), O(D) D: diameter """
-        right_side_view = []
+    # def rightSideView(self, root: TreeNode | None) -> list[int]:
+    #     """ practice: BFS O(N), O(D) D: diameter """
+    #     right_side_view = []
+    #     if not root:
+    #         return right_side_view
+    #     queue = deque([root])
+    #     while queue:
+    #         length = len(queue)
+    #         for i in range(length):
+    #             node = queue.popleft()
+    #             if i == length - 1:
+    #                 right_side_view.append(node.val)
+    #             if node.left:
+    #                 queue.append(node.left)
+    #             if node.right:
+    #                 queue.append(node.right)
+    #     return right_side_view
+    
+     def rightSideView(self, root: TreeNode | None) -> list[int]:
+        """ cracking fang: BFS level order O(N), O(D) D: diameter """
         if not root:
-            return right_side_view
+            return []
         queue = deque([root])
+        res = []
         while queue:
-            length = len(queue)
-            for i in range(length):
+            level_length = len(queue)
+            for i in range(level_length):
                 node = queue.popleft()
-                if i == length - 1:
-                    right_side_view.append(node.val)
+                if i == level_length - 1:
+                    res.append(node.val)
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-        return right_side_view
+        return res
+
+
 
     # def rightSideView(self, root: TreeNode | None) -> list[int]:
     #     """ Approach 4: Recursive DFS O(N), O(H), H - height """

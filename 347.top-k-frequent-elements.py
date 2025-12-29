@@ -145,8 +145,8 @@ class Solution:
         """ practice: neetcode o(n) bucket sort """
         count = {}
         freq = [[] for _ in range(len(nums) + 1)]
-        for n in nums:
-            count[n] = count.get(n, 0) + 1
+        for num in nums:
+            count[num] = count.get(num, 0) + 1
         for n, c in count.items():
             freq[c].append(n)
         res = []
@@ -156,7 +156,6 @@ class Solution:
                 if len(res) == k:
                     return res
 
-
                 
     # def topKFrequent(self, nums: List[int], k: int) -> List[int]:
     #     """ Approach 1: Heap O(N log k), O(N+k) """
@@ -165,6 +164,23 @@ class Solution:
         
     #     count = Counter(nums)   
     #     return heapq.nlargest(k, count.keys(), key=count.get)
+
+    # def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    #     """ Approach 1: Min-Heap O(N log k), O(N+k) """
+    #     count = {}
+    #     for num in nums:
+    #         count[num] = 1 + count.get(num, 0)
+
+    #     heap = []
+    #     for num in count.keys():
+    #         heapq.heappush(heap, (count[num], num))
+    #         if len(heap) > k:
+    #             heapq.heappop(heap)
+
+    #     res = []
+    #     for i in range(k):
+    #         res.append(heapq.heappop(heap)[1])
+    #     return res
         
 # @lc code=end
 

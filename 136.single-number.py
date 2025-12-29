@@ -45,14 +45,21 @@ class Solution:
     #         res = num ^ res
     #     return res
     
+    # def singleNumber(self, nums: List[int]) -> int:
+    #     """ practice: 4. Bit Manipulation, O(n),  O(1) """
+    #     res = 0
+    #     for num in nums:
+    #         res = num ^ res
+    #         # print(f'res: {res}, num: {num}')
+    #     return res 
+    
     def singleNumber(self, nums: List[int]) -> int:
         """ practice: 4. Bit Manipulation, O(n),  O(1) """
         res = 0
         for num in nums:
-            res = num ^ res
-            # print(f'res: {res}, num: {num}')
+            res = res ^ num 
         return res 
-    
+
 # @lc code=end
 
 # res: 2, num: 2

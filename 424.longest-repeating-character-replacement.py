@@ -85,30 +85,85 @@ class Solution:
     # def __is_window_valid(self, start: int, end: int, count: int, k: int):
     #     return end + 1 - start - count <= k
     
+    # def characterReplacement(self, s: str, k: int) -> int:
+    #     """ Approach 3: Sliding Window (Fast) O(n), O(m) """
+    #     start = 0
+    #     frequency_map = {}
+    #     max_frequency = 0
+    #     longest_substring_length = 0
+    #     for end in range(len(s)):
+    #         frequency_map[s[end]] = frequency_map.get(s[end], 0) + 1
+
+    #         # the maximum frequency we have seen in any window yet
+    #         max_frequency = max(max_frequency, frequency_map[s[end]])
+
+    #         # move the start pointer towards right if the current
+    #         # window is invalid
+    #         is_valid = (end + 1 - start - max_frequency <= k)
+    #         if not is_valid:
+    #             frequency_map[s[start]] -= 1
+    #             start += 1
+
+    #         # the window is valid at this point, store length
+    #         # size of the window never decreases
+    #         longest_substring_length = end + 1 - start
+
+    #     return longest_substring_length
+
+
+    # def characterReplacement(self, s: str, k: int) -> int:
+    #     """ Neetcode 3: Sliding Window (Optimal) O(26 * n), O(m) """
+    #     res = 0
+    #     charSet = set(s)
+
+    #     for c in charSet:
+    #         count = l = 0
+    #         for r in range(len(s)):
+    #             if s[r] == c:
+    #                 count += 1
+
+    #             while (r - l + 1) - count > k:
+    #                 if s[l] == c:
+    #                     count -= 1
+    #                 l += 1
+
+    #             res = max(res, r - l + 1)
+    #     return res
+    
+
+    # def characterReplacement(self, s: str, k: int) -> int:
+    #     """ Neetcode 3: Sliding Window (Optimal) O(n), O(m) """
+    #     count = {}
+    #     res = 0
+
+    #     l = 0
+    #     maxf = 0
+    #     for r in range(len(s)):
+    #         count[s[r]] = 1 + count.get(s[r], 0)
+    #         maxf = max(maxf, count[s[r]])
+
+    #         while (r - l + 1) - maxf > k:
+    #             count[s[l]] -= 1
+    #             l += 1
+    #         res = max(res, r - l + 1)
+
+        # return res
+    
     def characterReplacement(self, s: str, k: int) -> int:
-        """ Approach 3: Sliding Window (Fast) O(n), O(m) """
-        start = 0
-        frequency_map = {}
-        max_frequency = 0
-        longest_substring_length = 0
-        for end in range(len(s)):
-            frequency_map[s[end]] = frequency_map.get(s[end], 0) + 1
+        """ practice; Neetcode 3: Sliding Window (Optimal) O(n), O(m) """
+        count = {}
+        res = 0
+        l = 0
+        maxf = 0
+        for r in range(len(s)):
+            count[s[r]] = 1 + count.get(s[r], 0)
+            maxf = max(maxf, count[s[r]])
+            while (r - l + 1) - maxf > k:
+                count[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
 
-            # the maximum frequency we have seen in any window yet
-            max_frequency = max(max_frequency, frequency_map[s[end]])
-
-            # move the start pointer towards right if the current
-            # window is invalid
-            is_valid = (end + 1 - start - max_frequency <= k)
-            if not is_valid:
-                frequency_map[s[start]] -= 1
-                start += 1
-
-            # the window is valid at this point, store length
-            # size of the window never decreases
-            longest_substring_length = end + 1 - start
-
-        return longest_substring_length
         
 # @lc code=end
 

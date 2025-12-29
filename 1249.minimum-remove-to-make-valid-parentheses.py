@@ -162,10 +162,61 @@ class Solution:
     #             res.append(c)
     #     return ''.join(res)
     
+    # def minRemoveToMakeValid(self, s: str) -> str:
+    #     """  practice: ChatGPT solution O(n), O(n) """
+    #     stack = []
+    #     to_remove = set()
+
+    #     for i, c in enumerate(s):
+    #         if c == '(':
+    #             stack.append(i)
+    #         elif c == ')':
+    #             if stack:
+    #                 stack.pop()
+    #             else:
+    #                 to_remove.add(i)
+
+    #     to_remove.update(stack)
+
+    #     res = []
+    #     for i, c in enumerate(s):
+    #         if i not in to_remove:
+    #             res.append(c)
+    #     return ''.join(res)
+    
+    # def minRemoveToMakeValid(self, s: str) -> str:
+    #     """  
+    #     ChatGPT hybrid solution O(n), O(n) 
+    #     better performance and clarity
+    #     Two-pass approach with stack to track unmatched '('
+    #     and direct marking of invalid ')' during the first pass.
+    #     """
+
+    #     s = list(s)
+    #     stack = []
+
+    #     # Identify unmatched parentheses
+    #     for i, c in enumerate(s):
+    #         if c == '(':
+    #             stack.append(i)
+    #         elif c == ')':
+    #             if stack:
+    #                 stack.pop()
+    #             else:
+    #                 s[i] = ''  # mark invalid ')'
+
+    #     # Mark any unmatched '('
+    #     for i in stack:
+    #         s[i] = ''
+
+    #     return ''.join(s)
+    
     def minRemoveToMakeValid(self, s: str) -> str:
-        """  practice: ChatGPT solution O(n), O(n) """
+        """  
+        practice: ChatGPT hybrid solution O(n), O(n) 
+        """
+        s = list(s)
         stack = []
-        to_remove = set()
         for i, c in enumerate(s):
             if c == '(':
                 stack.append(i)
@@ -173,15 +224,10 @@ class Solution:
                 if stack:
                     stack.pop()
                 else:
-                    to_remove.add(i)
-
-        to_remove.update(stack)
-
-        res = []
-        for i, c in enumerate(s):
-            if i not in to_remove:
-                res.append(c)
-        return ''.join(res)
+                    s[i] = ''
+        for i in stack:
+            s[i] = ''
+        return ''.join(s)
 
  
 # @lc code=end

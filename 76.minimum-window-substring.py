@@ -265,46 +265,139 @@ class Solution:
 
     #     return s[start : end + 1] if min_length != float("inf") else ""
     
+    # def minWindow(self, s: str, t: str) -> str:
+    #     """ practice: ChatGPT sliding window O(|s| + |t|), O(|s| + |t|) """
+    #     if not s or not t:
+    #         return ""
+        
+    #     target_count = Counter(t)
+    #     target_uniqlen = len(target_count)
+    #     window_count = {}
+    #     window_uniqlen = 0
+
+    #     left, right = 0, 0
+
+    #     min_length = float("inf")
+    #     min_window = (0, 0)
+
+    #     while right < len(s):
+    #         char = s[right]
+    #         window_count[char] = window_count.get(char, 0) + 1
+
+    #         if char in target_count and window_count[char] == target_count[char]:
+    #             window_uniqlen += 1
+
+    #         while left <= right and window_uniqlen == target_uniqlen:
+    #             char = s[left]
+
+    #             if right - left + 1 < min_length:
+    #                 min_length = right - left + 1
+    #                 min_window = (left, right)
+
+    #             window_count[char] -= 1
+    #             if char in target_count and window_count[char] < target_count[char]:
+    #                 window_uniqlen -= 1
+
+    #             left += 1
+
+    #         right += 1
+
+    #     start, end = min_window
+
+    #     return s[start : end + 1] if min_length != float("inf") else ""
+
+    # def minWindow(self, s: str, t: str) -> str:
+    #     """ Neetcode: Sliding Window O(n + m), O(m) """
+    #     if t == "":
+    #         return ""
+
+    #     countT, window = {}, {}
+    #     for c in t:
+    #         countT[c] = 1 + countT.get(c, 0)
+
+    #     have, need = 0, len(countT)
+    #     res, resLen = [-1, -1], float("infinity")
+    #     l = 0
+    #     for r in range(len(s)):
+    #         c = s[r]
+    #         window[c] = 1 + window.get(c, 0)
+
+    #         if c in countT and window[c] == countT[c]:
+    #             have += 1
+
+    #         while have == need:
+    #             if (r - l + 1) < resLen:
+    #                 res = [l, r]
+    #                 resLen = r - l + 1
+
+    #             window[s[l]] -= 1
+    #             if s[l] in countT and window[s[l]] < countT[s[l]]:
+    #                 have -= 1
+    #             l += 1
+    #     l, r = res
+    #     return s[l : r + 1] if resLen != float("infinity") else ""
+
+
+    # def minWindow(self, s: str, t: str) -> str:
+    #     """ practice: Neetcode: Sliding Window O(n + m), O(m) """
+    #     if t == "":
+    #         return ""
+    #     countT, window = {}, {}
+    #     for c in t:
+    #         countT[c] = 1 + countT.get(c, 0)
+    #     have, need = 0, len(countT)
+    #     res, resLen = [-1, -1], float('inf')
+    #     l = 0
+    #     for r in range(len(s)):
+    #         window[s[r]] = 1 + window.get(s[r], 0)
+    #         if s[r] in countT and countT[s[r]] == window[s[r]]:
+    #             have += 1
+
+    #         while have == need:
+    #             if (r - l + 1) < resLen:
+    #                 res = [l, r]
+    #                 resLen = r - l + 1
+
+    #             window[s[l]] -= 1
+    #             if s[l] in countT and window[s[l]] < countT[s[l]]:
+    #                 have -= 1
+    #             l += 1
+    #     l, r = res
+    #     return s[l : r + 1] if resLen != float('inf') else ""
+    
     def minWindow(self, s: str, t: str) -> str:
-        """ practice: ChatGPT sliding window O(|s| + |t|), O(|s| + |t|) """
-        if not s or not t:
+        """ cracking faang: Sliding Window O(n + m), O(m) """
+        if not s or not t or len(t) > len(s):
             return ""
         
-        target_count = Counter(t)
-        target_uniqlen = len(target_count)
-        window_count = {}
-        window_uniqlen = 0
+        t_counts = collections.Counter(t)
+        l = r = matches = 0
+        required_matches = len(t_counts)
+        window_counts = collections.defaultdict(int)
+        ans = (float('inf'), 0, 0) # length, right, left
 
-        left, right = 0, 0
+        while r < len(s):
+            cur_char = s[r]
+            window_counts[cur_char] += 1
+            if cur_char in t_counts and t_counts[cur_char] == window_counts[cur_char]:
+                matches += 1
 
-        min_length = float("inf")
-        min_window = (0, 0)
+            while l <= r and matches == required_matches:
+                to_remove = s[l]
 
-        while right < len(s):
-            char = s[right]
-            window_count[char] = window_count.get(char, 0) + 1
+                if r - l + 1 < ans[0]:
+                    ans = (r - l + 1, l, r)
 
-            if char in target_count and window_count[char] == target_count[char]:
-                window_uniqlen += 1
+                window_counts[to_remove] -= 1
 
-            while left <= right and window_uniqlen == target_uniqlen:
-                char = s[left]
+                if to_remove in t_counts and window_counts[to_remove] < t_counts[to_remove]:
+                    matches -= 1
+                
+                l += 1
 
-                if right - left + 1 < min_length:
-                    min_length = right - left + 1
-                    min_window = (left, right)
+            r += 1
 
-                window_count[char] -= 1
-                if char in target_count and window_count[char] < target_count[char]:
-                    window_uniqlen -= 1
-
-                left += 1
-
-            right += 1
-
-        start, end = min_window
-
-        return s[start : end + 1] if min_length != float("inf") else ""
+        return s[ans[1] : ans[2] + 1] if ans[0] != float('inf') else ""
 
 
 # @lc code=end

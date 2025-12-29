@@ -24,15 +24,25 @@ class Solution:
         
         # return prev
     
+        # """ practice: Approach 1: Iterative O(n), O(1) """
+        # prev = None 
+        # curr = head
+        # while curr:
+        #     temp = curr.next
+        #     curr.next = prev 
+        #     prev = curr
+        #     curr = temp
+
+        # return prev
+    
         """ practice: Approach 1: Iterative O(n), O(1) """
-        prev = None 
+        prev = None
         curr = head
         while curr:
             temp = curr.next
-            curr.next = prev 
+            curr.next = prev
             prev = curr
             curr = temp
-
         return prev
 
         

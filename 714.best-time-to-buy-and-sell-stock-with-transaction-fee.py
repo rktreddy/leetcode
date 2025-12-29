@@ -43,7 +43,6 @@ class Solution:
         return free
     
     
-    
     # # The class Solution contains a method to calculate the maximum profit from trading stocks,
     # # given an array that represents the price of a stock on different days, and a fixed transaction fee.
     # def maxProfit(self, prices: List[int], fee: int) -> int:

@@ -7,7 +7,7 @@
 # @lc code=start
 class Solution:
     # def findAnagrams(self, s: str, p: str) -> List[int]:
-    #     """ Approach 1: Sliding Window with HashMap O(Ns), O(K) """
+    #     """ Approach 1: Sliding Window with HashMap O(Ns), O(K), K is 26 -> O(1)? """
     #     ns, np = len(s), len(p)
     #     if ns < np:
     #         return []
@@ -66,8 +66,11 @@ class Solution:
                 output.append(i - np + 1)
 
         return output
-
-
+    
+    # def findAnagrams(self, s: str, p: str) -> List[int]:
+    #     """ practice: Approach 2: Sliding Window with Array O(Ns), O(K) """
+        
+                
         
 # @lc code=end
 

@@ -49,6 +49,7 @@ class Solution:
 
     #     return True
     
+    
     # def isValidBST(self, root: Optional[TreeNode]) -> bool:
     #     """ Approach 3: Recursive Inorder Traversal O(N), O(N) """
 
@@ -85,20 +86,54 @@ class Solution:
 
     #     return True
     
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        """ practice: Approach 4: Iterative Inorder Traversal O(N), O(N) """
-        stack = []
-        prev = float("-inf")
-        while stack or root:
-            while root:
-                stack.append(root)
-                root = root.left
-            root = stack.pop()
-            if root.val <= prev:
-                return False
-            prev = root.val
-            root = root.right
-        return True
+    # def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    #     """ practice: Approach 4: Iterative Inorder Traversal O(N), O(N) """
+    #     stack = []
+    #     prev = float("-inf")
+    #     while stack or root:
+    #         while root:
+    #             stack.append(root)
+    #             root = root.left
+    #         root = stack.pop()
+    #         if root.val <= prev:
+    #             return False
+    #         prev = root.val
+    #         root = root.right
+    #     return True
+    
 
+    # def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    #     """ Neetcode: Recursive DFS O(n), O(n) """
+    #     def valid(node, left, right):
+    #         if not node:
+    #             return True
+    #         if not (left < node.val < right):
+    #             return False
+
+    #         return valid(node.left, left, node.val) and valid(
+    #             node.right, node.val, right
+    #         )
+
+    #     return valid(root, float("-inf"), float("inf"))
+    
+    # def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    #     """ cracking faang: Recursive DFS O(n), O(n) """
+
+    
 # @lc code=end
 
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        """ practice: Approach 2: Iterative Traversal with Valid Range O(N), O(N) """
+        if not root:
+            return True
+        
+        stack = [(root, float('-inf'), float('inf'))] # root, low, high
+        while stack:
+            node, low, high = stack.pop()
+            if not node:
+                continue
+            if node.val <= low or node.val >= high:
+                return False
+            stack.append(node.left, low, node.val)
+            stack.append(node.right, node.val, high)
+        return True
